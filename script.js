@@ -1,9 +1,9 @@
-var humanScore = 0;
-var computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
 function getComputerChoice () {
     //returns rock, paper, or scissors, randomly
-    var i = parseInt((Math.random() * 100) % 3);
+    let i = parseInt((Math.random() * 100) % 3);
     switch (i){
         case 0:
             return "rock";
@@ -15,7 +15,7 @@ function getComputerChoice () {
 }
 
 function getHumanChoice () {
-    var choice = prompt("Rock, paper, or scissors?");
+    let choice = prompt("Rock, paper, or scissors?");
     choice = choice.toLowerCase();
     return choice;
 }
@@ -79,5 +79,21 @@ function computerWins (humanChoice, computerChoice) {
 function humanWins (humanChoice, computerChoice) {
     console.log(`You win! ${humanChoice} beats ${computerChoice}`);
     humanScore++;
+    return;
+}
+
+function playGame () {
+    for(let i=0; i<5; i++){
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+    if(computerScore > humanScore){
+        console.log("Computer wins!");
+    }
+    else if(humanScore > computerScore){
+        console.log("Human wins!");
+    }
+    else {
+        console.log("It's a tie!");
+    }
     return;
 }
