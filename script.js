@@ -11,3 +11,8 @@ function getComputerChoice () {
     }
 }
 
+function getHumanChoice () {
+    var choice = prompt("Rock, paper, or scissors?");
+    //here's where the data should be cleaned
+    return choice;
+}
