@@ -1,6 +1,16 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const display = document.querySelector("#display");
+const humanScoreDisplay = document.querySelector("#playerScore");
+const computerScoreDisplay = document.querySelector("#computerScore");
+
+function updateScores(){
+    humanScoreDisplay.textContent = humanScore;
+    computerScoreDisplay.textContent = computerScore;
+    return;
+}
+
 function getComputerChoice () {
     //returns rock, paper, or scissors, randomly
     let i = parseInt((Math.random() * 100) % 3);
@@ -66,34 +76,49 @@ function playRound (humanChoice, computerChoice) {
 }
 
 function tie (humanChoice, computerChoice) {
-    console.log(`It's a tie! ${humanChoice} and ${computerChoice} are the same.`);
+    const newPara = document.createElement("p");
+    newPara.textContent = `It's a tie! ${humanChoice} and ${computerChoice} are the same.`;
+    display.appendChild(newPara);
     return;
 }
 
 function computerWins (humanChoice, computerChoice) {
-    console.log(`You lose :( ${computerChoice} beats ${humanChoice}`);
+    const newPara = document.createElement("p");
+    newPara.textContent = `You lose :( ${computerChoice} beats ${humanChoice}`;
+    display.appendChild(newPara);
     computerScore++;
+    updateScores();
     return;
 }
 
 function humanWins (humanChoice, computerChoice) {
-    console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+    const newPara = document.createElement("p");
+    newPara.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+    display.appendChild(newPara);
     humanScore++;
+    updateScores();
     return;
 }
 
-function playGame () {
-    for(let i=0; i<5; i++){
-        playRound(getHumanChoice(), getComputerChoice());
+function playGame (e) {
+    switch(e.target.id) {
+        case "rock":
+            playRound("rock", getComputerChoice());
+            break;
+        case "paper":
+            playRound("paper", getComputerChoice());
+            break;
+        case "scissors":
+            playRound("scissors", getComputerChoice());
+            break;
     }
-    if(computerScore > humanScore){
-        console.log("Computer wins!");
+    if (computerScore>4 || humanScore>4) {
+        const newPara = document.createElement("p");
+        if(computerScore>4) newPara.textContent = "Computer wins!";
+        else newPara.textContent = "You win!";
+        display.appendChild(newPara);
     }
-    else if(humanScore > computerScore){
-        console.log("Human wins!");
-    }
-    else {
-        console.log("It's a tie!");
-    }
-    return;
 }
+
+const buttonBar = document.querySelector("#buttonBar");
+buttonBar.addEventListener("click", playGame);
